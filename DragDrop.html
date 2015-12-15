@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Drag n Drap</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.3.js">
+
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span1" draggable="true">1</div>
+        <div class="span1">3</div>
+        <div class="span10"></div>
+      </div>
+      <br/>
+      <div class="row-fluid">
+        <div class="span1" draggable="true">2</div>
+        <div class="span1"></div>
+        <div class="span10"></div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    var $dragged;
+    $(document).ready(function(){
+      $('[draggable="true"]').on('dragstart', dragging );
+      $('div [draggable="true"]').on('dragend', draggingEnded );
+      $('div').on('dragenter', preventDefault );
+      $('div').on('dragover', preventDefault );
+      $('div').on('drop', dropped );
+    });
+
+    function dragging(e){
+      $(e.target).addClass('dragging');
+      $dragged = $(e.target);
+    }
+
+    function dropped(e){
+      $dragged.detach();
+      $dragged.appendTo($(e.target));
+    }
+
+    function draggingEnded(e){
+      $(e.target).removeClass('dragging');
+    }
+
+    function preventDefault(e){
+      e.preventDefault();
+    }
+  </script>
+</html>

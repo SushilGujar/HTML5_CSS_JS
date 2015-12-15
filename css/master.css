@@ -1,0 +1,36 @@
+*
+{
+  font-family: sans-serif;
+}
+
+#flexbox1
+{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+
+    margin: 10px;
+    border: 1px solid gray;
+    min-height: 300px;
+}
+
+#flexbox1 > div{
+  min-width: 80px;
+  min-height: 80px;
+  border: 1px solid blue;
+  margin: 2px;
+  flex: auto;
+}
+
+#flexbox1 > div:first-child{
+  background-color: orange;
+}
+#flexbox1 > div:nth-child(2){
+  background-color: crimson;
+  flex: 0.67;
+}
+#flexbox1 > div:nth-child(3){
+  background-color: green;
+  flex: 0.33;
+}

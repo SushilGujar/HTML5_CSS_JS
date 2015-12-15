@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<title>GeoLocation Demo</title>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+</head>
+<body>
+  <h1>Your position is </h1>
+  <div id="pos" style="float: left"></div>
+  <div id="map" style="display: block; width: 400px; height: 300px; float:right;"></div>
+  <button type="button" id="watch" value="Watch position">Watch position</button>
+  <button type="button" id="stopWatch" value="Stop atch position">Stop Watching</button>
+  <h2>Your new position is</h1>
+  <div id="newPos" style="clear: both;"></div>
+</body>
+<script type="text/javascript">
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 2000,
+    maximumAge: 0
+  };
+  $(document).ready(function(){
+    if(supportsGeoLocation == 'geolocation')
+    {
+      $('#pos').html("your browser doesn't support Geolocation");
+    }
+    else {
+      navigator.geolocation.getCurrentPosition(show, showError, options);
+    }
+    $('#watch').on('click', watchPosition);
+    $('#stopWatch').on('click', stopWatching);
+  });
+
+  function show(position)
+  {
+    showPostion($('#pos'), position);
+  }
+
+  function showNewPos(position)
+  {
+    showPostion($('#newPos'), position);
+  }
+  function showPostion(target, position)
+  {
+    target.html("Longitude:  " + position.coords.longitude + "<br/>");
+    target.append("Latitude: " + position.coords.latitude + "<br/>" );
+    target.append("Accuracy: " + position.coords.accuracy + "<br/>");
+    target.append("Speed: " + position.coords.speed + "<br/>");
+    target.append("Heading: " + position.coords.heading + "<br/>");
+    target.append("Altitude: " + position.coords.altitude + "<br/>");
+    target.append("Altitude Accuracy: " + position.coords.altitudeAccuracy + "<br/>");
+    target.append("Timestamp: " + Date(position.timestamp));
+
+    var canvs = document.getElementById("map");
+    var coords = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
+    var opts = {
+      zoom: 13,
+      center: coords,
+      mapTypeControl: false,
+      navigationControlOptions: {
+        style: google.maps.NavigationControlStyle.SMALL
+      },
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(canvs, opts);
+    var marker = new google.maps.Marker({ position: coords, map: map, title: 'you are here!'});
+  }
+
+  function showError(error)
+  {
+    switch(error.code)
+    {
+      case error.PERMISSION_DENIED:
+        alert("user denied the location access: " + error.message);
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable: " + error.message);
+        break;
+      case error.TIMEOUT:
+        alert("Location couldn't be found at this time: " + error.message);
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("Something failed but I'm not sure what: " + error.message);
+    }
+  }
+  function supportsGeoLocation()
+  {
+    return 'geolocation' in navigator;
+  }
+
+  function watchPosition()
+  {
+    watchId = navigator.geolocation.watchPosition(showNewPos, showError, options);
+    alert("Started watching you.");
+  }
+
+  function stopWatching()
+  {
+    if(watchId)
+    {
+      navigator.geolocation.clearWatch(watchId);
+    }
+    alert("I have stopped watching you.");
+  }
+</script>
+</html>

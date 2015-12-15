@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Socket Demo</title>
+    <script lang="javascript" src="js/jquery-1.11.3.js"></script>
+
+  </head>
+  <body>
+      <label  for="msg">Enter your message</label>
+      <textarea id='msg'
+        autofocus="true"
+        placeholder="put your message here"
+        maxlength="168"
+        rows="4"
+        cols="48"
+      >
+      </textarea>
+      </divs>
+      <button id="submit" value="Click me!" name="submit">Click Me!</button>
+      <div id="chatlog"></div>
+  </body>
+  <script type="text/javascript">
+    ///<reference path="js/jquery-1.11.3.js" />
+    var wsUri = 'ws://echo.websocket.org/';
+    $(document).ready(function(){
+      if(window.WebSocket)
+      {
+        Connect();
+      }
+
+      $("#submit").on("click",  function(){
+        ws.send($('#msg').val());
+      });
+    });
+
+    function Connect()
+    {
+      ws = new WebSocket(wsUri);
+      ws.onopen = function (e) { console.log("Websocket Opened an listenning..."); };
+      ws.onmessage = function (e) { console.log("message echoed..."); $("#chatlog").html(e.data);};
+      ws.onclosing = function (e) { console.log("Closing Websocket ..."); };
+      ws.onclosed = function (e) { console.log("Websocket Closed"); };
+      ws.onerror = function (e) { console.log("Error: " + e.tostring()); };
+    }
+  </script>
+</html>

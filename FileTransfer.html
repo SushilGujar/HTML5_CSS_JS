@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Drag n Drap</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.3.js">
+
+    </script>
+  </head>
+  <body>
+    <label for="dropbox">Drop your files here...</label>
+    <div id="dropbox" class="container-fluid" width="800px" height="300px">
+      <p>Drop your files here...</p>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <table width="50%" id="fileInfo" class="table"></table>
+  </body>
+  <script type="text/javascript">
+    jQuery.event.props.push('dataTransfer');
+    $(document).ready(function(){
+      $('#dropbox').on('dragenter', preventDefault );
+      $('#dropbox').on('dragover', preventDefault);
+      $('#dropbox').on('drop', show);
+    });
+
+    function show(event)
+    {
+      $('#fileInfo').html('<thead><th>Name</th><th>File Size</th><th>Type</th></thead>');
+      var files = event.dataTransfer.files;
+      $.each(files, function(index, obj)
+      {
+        $('<tr><td>' + obj.name + '</td><td>' + obj.size + '</td><td>' + obj.type  + '</td><tr>').appendTo($('#fileInfo'));
+      });
+      preventDefault(e);
+    }
+
+    function preventDefault(e){
+      e.preventDefault();
+    }
+  </script>
+
+</html>

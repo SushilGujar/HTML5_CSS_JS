@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Triage Questions</title>
+    <link rel="stylesheet" href="./css/question.css" media="screen" title="no title" charset="utf-8">
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="triageQuestions" class="flexlayout">
+    </div>
+  </body>
+  <script type="text/javascript">
+  var questions;
+  function setQuestions(data) {
+    // body...
+    questions = JSON.parse(data).questions;
+
+    if(questions.length > 0)
+    {
+      questions.forEach(function (elem) {
+        // body...
+        var question = '<div id="que' + elem.id + '">' +
+          '<label for="">' +
+          elem.question +
+          '</label><br/>' +
+          '<input type="radio" name="ans' + elem.id + '" value="yes" data-nextquestion="' + elem.yes + '" onclick="answerred(this);">Yes</input>' +
+          '<input type="radio" name="ans' + elem.id + '" value="no" data-nextquestion="' + elem.no + '" onclick="answerred(this);">no</input>' +
+        '</div>';
+        $(question).appendTo($("#triageQuestions"));
+      });
+    }
+  }
+
+  function logError(error) {
+    // body...
+    console.log(error);
+  }
+
+    $(document).ready(function()
+    {
+      $.ajax(
+        {
+          url: "questionSet.json",
+          type: "GET",
+          data: null,
+          datatype: "json",
+          success: setQuestions,
+          cache: true,
+          failure: logError
+        }
+      );
+    });
+
+    function answerred(question)
+    {
+      var next = $(question).attr('data-nextquestion');
+
+      clear(question);
+
+      if(next)
+      {
+        $("#que" + next ).css('display', 'block');
+      }
+    }
+
+    function clear(question)
+    {
+      $.each($("div[id^='que']"), function(index, elem) {
+        if($(elem).attr("id") > $(question).parent().attr("id"))
+        {
+          $(elem).css("display", "none");
+        }
+      });
+    }
+  </script>
+</html>

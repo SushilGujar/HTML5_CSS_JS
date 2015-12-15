@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Table Demo</title>
+      <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+      <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+   </head>
+   <body>
+
+      <table id="cars">
+         <thead>
+            <tr>
+               <th>Vehicle #</th>
+               <th>Category</th>
+               <th>Year</th>
+               <th>Make</th>
+               <th>Model</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         <caption> Wheels of chariot</caption>
+      </table>
+      <button id="insert">Insert</button>
+   </body>
+   <script type="text/javascript">
+      var db;
+     $(document).ready(function(){
+       db = openDatabase('Autobase', 1.0, 'Cars Data', 5 * 1024 * 1024);
+       db.transaction(function(tran){
+           tran.executeSql("CREATE TABLE Vehicle (Id INTEGER PRIMARY KEY AUTOINCREMENT, Category TEXT, Year INTEGER, Make TEXT, Model TEXT, Price Numeric)");
+           tran.executeSql("INSERT INTO Vehicle (Category, Year, Make, Model, Price) VALUES (?, ?, ?, ?, ?)", ["Supercar", 2008, 'Aston Martin', 'C8', 423000.00]);
+        });
+
+        db.readTransaction(function(tran){
+          tran.executeSql("SELECT * FROM Vehicle", [], displayResults);
+        });
+
+        $("#insert").on('click', insert);
+     });
+
+     function insert()
+     {
+        db.transaction(function(tran){
+          tran.executeSql('INSERT INTO Vehicle (Category, Year, Make, Model, Price) VALUES (?, ?, ?, ?, ?)', ["Supercar", 2008, 'Aston Martin', 'C8', 423000.00]);
+        });
+        show();
+     }
+
+     function show()
+     {
+       db.readTransaction(function(tran){
+         tran.executeSql("SELECT * FROM Vehicle", [], displayResults);
+       });
+     }
+
+     function displayResults(transaction, results)
+     {
+       for(i=0; i< results.rows.length; i++)
+       {
+         var item = results.rows.item(i);
+         $("<tr><td>"
+            + item.Id + "</td><td>"
+            + item.Category + "</td><td>"
+            + item.Year + "</td><td>"
+            + item.Make + "</td><td>"
+            + item.Model + "</td><td>"
+            + item.Price + "</td></tr>").appendTo($('#cars'));
+       }
+     }
+   </script>
+</html>

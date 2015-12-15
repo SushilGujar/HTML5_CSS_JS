@@ -1,0 +1,130 @@
+@charset 'utf-8';
+
+@font-face{
+  font-family: 'myfont';
+  src: url('font/3Dumb-webfont.woff'), url('font/Pacifico.ttf'),  url('font/2Dumb-webfont.eot');
+}
+
+body
+{
+  font-family: cursive;
+}
+header{
+  display: block;
+}
+.topic h1
+{
+  font-family: myfont, 'comic sans';
+  font-size: 28px;
+  color: red;
+}
+
+h2, h3
+{
+  color: #55adab;
+  font-family: cursive;
+  font-weight: lighter;
+}
+
+h3 ~ ul
+{
+  color: magenta;
+}
+
+[id|=comming]
+{
+    text-shadow: 1px 1px 1px black;
+}
+h4:before
+{
+  content: '*';
+  color: red;
+}
+h4:not(:hover)
+{
+  text-decoration: underline;
+}
+.movielist li:nth-child(3)
+{
+  color: red;
+}
+
+.gallery
+{
+  width: 600px;
+  height: 400px;
+}
+
+li li::first-letter{
+  font-weight: bold;
+}
+li:nth-child(even) {     font-size: large; }
+li:nth-child(4) {     font-size: inherit;}
+
+:checked{
+  outline: red solid 2px;
+  background-color: gold;
+}
+
+.goldenbox
+{
+  background: yellow;
+  width: 600px;
+  height: 150px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 20px 10px gold ;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px;
+
+}
+::selection{
+  text-shadow: 1px 1px 1px black;
+  background-color: yellow;
+}
+.geeta
+{
+  width: 1024px;
+  height: 600px;
+}
+table{
+  border: 1px solid;
+  padding: 2px;
+  margin: 2px;
+  background: #bada55;
+}
+thead th{
+  background: hsl(100, 50%, 50%);
+}
+tbody th{
+  background: rgba(150, 150, 40, 0.5);
+}
+tfoot{
+  background: yellow;
+}
+td{
+  border: 1px solid gray;
+}
+.special_columns
+{
+  color: red;
+}
+
+
+label
+{
+  clear: left;
+  float:left;
+  margin: 10px;
+  display: block;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+button
+{
+  clear: both;
+  float: left;
+  margin: 10px;
+  font-weight: bold;
+}

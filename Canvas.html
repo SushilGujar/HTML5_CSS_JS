@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas Demo</title>
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="can">
+      <canvas id="canvas" width="1200" height="580">Yor browser doesn't support canvas</canvas>
+    </div>
+  </body>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    var canvs = $("#canvas");
+    var ctx = canvas.getContext('2d');
+    // linearGradient
+    var gradient = ctx.createLinearGradient(50, 50, 250, 200);
+    addColorStops(gradient);
+    ctx.strokeStyle = gradient;
+    ctx.fillStyle = gradient;
+    var x1 = 25, y1 = 50, width = 250, height=200;
+    ctx.fillRect(x1, y1, width, height);
+
+    // save
+    ctx.save();
+    var offset = 25;
+    // radialGradient
+    x1 += width;
+    var radialGradient = ctx.createRadialGradient(x1 + offset, y1 + offset, offset, width + (width/2), height/2, height);
+    addColorStops(radialGradient);
+    ctx.fillStyle = radialGradient;
+    ctx.strokeStyle = radialGradient;
+    ctx.fillRect(x1 + offset, y1, width, height);
+
+    // restore
+    ctx.restore();
+    ctx.lineWidth = 10;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(canvs.attr('width'), 0);
+    ctx.lineTo(canvs.attr('width'), canvs.attr('height'));
+    ctx.lineTo(0, canvs.attr('height') );
+    ctx.lineTo(0, 0);
+    ctx.stroke();
+
+    ctx.fillRect(x1 - width, y1, width, height );
+
+    ctx.lineJoin = "bevel";
+    ctx.strokeRect(600, 100, 40, 40);
+    ctx.strokeStyle = 'red';
+    ctx.lineJoin = "round";
+    ctx.strokeRect(600, 200, 40, 40);
+
+    ctx.moveTo(700, 350);
+    ctx.arcTo(550, 350, 600, 400, 50);
+    ctx.lineTo(670, 440);
+    ctx.arcTo(700, 500, 550, 550, 40);
+    var img = new Image();
+      img.src = "images/img001.jpg";
+    img.onload = function (){
+      ctx.drawImage(img, 750, 350);
+    };
+
+    ctx.moveTo(1000, 100);
+    ctx.beginPath();
+    // center x, y, radius, angle
+    ctx.arc(800, 400, 150, 0,  2 * 3.14);
+    ctx.fill();
+    ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.font = 'bold 100pt cursive';
+    ctx.fillText('Hello', 800, 200);
+    ctx.strokeText("Hello", 800, 200);
+
+    // Pattern
+    x1 = 25;
+    y1 += height;
+    var img = new Image();
+    img.src = 'images/bf.gif';
+    img.onload = function (){
+      var pattern = ctx.createPattern(img, 'repeat');
+      ctx.fillStyle = pattern;
+      ctx.fillRect(x1, y1 + offset, 1.5 * width, 1.5 * height);
+    };
+  });
+
+  function addColorStops(grad)
+  {
+    grad.addColorStop("0", "gray");
+    grad.addColorStop("0.25", "blue");
+    grad.addColorStop("0.5", "orange");
+    grad.addColorStop("0.75", "green");
+    grad.addColorStop("1.0", "gray");
+  }
+  </script>
+</html>

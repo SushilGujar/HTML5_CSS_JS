@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div><pre><p id='para'></p> </pre></div>
+  </body>
+  <script type="text/javascript">
+    var arr = new Array(), rra = new Array();
+    arr = [ 'a', 'b', 'c', 'd', 'e' ];
+    rra = ['z', 'y', 'x'];
+
+    $("#para").html('join:          ' + arr.join());
+    $('#para').append('<br/>');
+    $("#para").append('toString:    ' + arr.toString());
+    $('#para').append('<br/>');
+    $("#para").append('reverse:     ' + rra.reverse().toString());
+    $('#para').append('<br/>');
+    $("#para").append('merge:     ' + arr.concat(rra));
+    $('#para').append('<br/>');
+    $("#para").append('post merge arr:     ' + arr);
+    $('#para').append('<br/>');
+    $("#para").append('slice:     ' + arr.slice(2,8));
+    $('#para').append('<br/>');
+    arr = [ 'a', 'b', 'c', 'd', 'e' ];
+    //arr =  arr.splice(2, 3, 'spice');
+    $("#para").append('splice:     ' + arr.splice(2, 2, ['spice','dog']));
+    $('#para').append('<br/>');
+    $("#para").append('splice:     ' + arr);
+    $('#para').append('<br/>');
+    $("#para").append('sort:     ' + rra.sort().toString());
+  </script>
+</html>

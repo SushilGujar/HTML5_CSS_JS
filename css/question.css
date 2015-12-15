@@ -1,0 +1,27 @@
+*
+{
+  font-family: sans-serif;
+}
+
+#triageQuestions
+{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    flex-direction: column;;
+
+    margin: 10px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    min-height: 300px;
+}
+
+#triageQuestions > div{
+  min-height: 80px;
+  margin: 10px;
+  display: none;
+}
+
+#triageQuestions > div:first-child{
+  display: block;
+}

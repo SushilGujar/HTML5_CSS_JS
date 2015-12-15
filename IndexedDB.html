@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>IndexedDB Demo</title>
+      <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+      <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <table id="cars">
+         <thead>
+            <tr>
+               <th>Vehicle #</th>
+               <th>Category</th>
+               <th>Year</th>
+               <th>Make</th>
+               <th>Model</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         <caption> Wheels of chariot</caption>
+      </table>
+      <button id="insert">Insert</button>
+      <button id="show">Show</button>
+      <button id="showAll">Show All</button>
+   </body>
+   <script type="text/javascript">
+      var db;
+      var indexedDB = window.indexedDB;
+
+      $(document).ready(function(){
+          dbOpenRequest = indexedDB.open('Vehicle', 1.0);
+          dbOpenRequest.onupgradeneeded = function (response){
+            var store  = response.currentTarget.result.createObjectStore('CarStore', {keypath: 'Id', autoIncrement: true});
+            store.createIndex('Year', 'Year', { unique: false});
+          };
+
+          dbOpenRequest.onsuccess = function(response){
+              db = dbOpenRequest.result;
+          };
+
+          dbOpenRequest.onerror = function(response){
+              alert("Error: " + response.target.errorCode);
+          };
+
+          $("#insert").on('click', insert);
+          $("#show").on('click', show);
+          $("#showAll").on('click', showAll);
+     });
+
+     function insert()
+     {
+       var tran = db.transaction('CarStore', 'readwrite');
+       var store = tran.objectStore("CarStore");
+       store.add({ 'Year': 2008, 'Category': 'Supercar', 'Make': 'Aston Martin', 'Model': '8C Competizione', 'Price': 432400.00});
+       store.add({ 'Year': 2010, 'Category': 'Supercar', 'Make': 'Buggatti', 'Model': 'Veyron', 'Price': 652400.00});
+       show();
+     }
+
+     function show()
+     {
+       var tran = db.transaction('CarStore', 'readonly');
+       var store = tran.objectStore("CarStore");
+       var request = store.get(1);
+
+       request.onsuccess = function(response){
+         var car = response.target.result;
+         displayResults(car);
+       };
+     }
+
+     function showAll()
+     {
+       var tran = db.transaction('CarStore', 'readonly');
+       var store = tran.objectStore("CarStore");
+       var request = store.openCursor();
+
+
+
+       request.onsuccess = function(response){
+         var cursor = response.target.result;
+
+         if (!cursor) {
+           alert('No records found.');
+           return;
+         }
+
+         displayResults(cursor.value);
+
+         cursor.continue();
+       };
+     }
+
+
+     function displayResults(item)
+     {
+         $("<tr><td>"
+            + item.Id + "</td><td>"
+            + item.Category + "</td><td>"
+            + item.Year + "</td><td>"
+            + item.Make + "</td><td>"
+            + item.Model + "</td><td>"
+            + item.Price + "</td></tr>").appendTo($('#cars'));
+     }
+   </script>
+</html>

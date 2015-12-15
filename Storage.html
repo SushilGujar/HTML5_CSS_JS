@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script lang="javascript" src="js/jquery-1.11.3.js"></script>
+    <script type="text/javascript">
+      ///<reference path="js/jquery-1.11.3.js"/>
+      $(document).ready(function(){
+        if(localStorage.FavoriteDestination)
+        {
+          $("#FavoriteDestination").val(localStorage.FavoriteDestination);
+        }
+        if(sessionStorage.CurrentLocation)
+        {
+          $("#CurrentLocation").val(sessionStorage.CurrentLocation);
+        }
+
+      $("#go").on('click', function(){
+        try {
+            localStorage.FavoriteDestination = $("#FavoriteDestination").val();
+            sessionStorage.CurrentLocation = $("#CurrentLocation").val();
+            var num = acgsd / 0;
+            alert(num);
+        } catch (e) {
+          alert("error: " + e.message);
+            $("#result").html("Error: " + e.toString() + "<br />");
+            $("#result").append("Error Name: " + e.name + "<br />");
+            $("#result").append("Error Message: " + e.message + "<br />");
+            $("#result").append("Error Number: " + e.number + "<br />");
+            $("#result").append("Error Code: " + e.code + "<br />");
+            $("#result").append("Error Stack: " + e.stack + "<br />");
+            $("#result").append("Error Line: " + e.line + "<br />");
+        } finally {
+
+        }
+      });
+
+      });
+    </script>
+  </head>
+  <body>
+      <h1>Session Storage</h1>
+      <form id="travel">
+      <label for="CurrentLocation">Where are you?</label>
+      <input type="text" id="CurrentLocation" placeholder="<Your Current City>"></input>
+      <h1>Local Storage</h1>
+      <label for="FavoriteDestination">Where do you like to travel?</label>
+      <input type="text" id="FavoriteDestination" placeholder="<Your Favorite Destination>"></input>
+        <br/>
+        <br/>
+        <button type="button" id="go" value="Go">Go</button>
+      </form>
+      <div id="result"></div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "question": "Do you have your phone?",
+      "yes": "2",
+      "no": "4",
+      "prev": "0"
+    },
+    {
+      "id": "2",
+      "question": "Did you drop it?",
+      "yes": "3",
+      "no": "4",
+      "prev": "1"
+    },
+    {
+      "id": "3",
+      "question": "Did you drop it in liquid?",
+      "yes": "4",
+      "no": "4",
+      "prev": "2"
+    },
+    {
+      "id": "4",
+      "question": "So you don't have your phone?",
+      "yes": "4",
+      "no": "4",
+      "prev": "1"
+    }
+  ]
+}

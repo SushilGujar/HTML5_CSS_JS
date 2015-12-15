@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Table Demo</title>
+      <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+      <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+      <style media="screen">
+
+      </style>
+   </head>
+   <body>
+      <table id="cars">
+        <colgroup><col span="2" class="special_columns"></col></colgroup>
+         <thead>
+            <tr>
+               <th>Vehicle #</th>
+               <th>Category</th>
+               <th>Year</th>
+               <th>Make</th>
+               <th>Model</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         <tbody
+            id="antiqueCars">
+            <tr>
+               <th>1</th>
+               <td
+                  rowspan="2">Antique</td>
+               <td>1957</td>
+               <td>Ford</td>
+               <td>Thunderbird</td>
+               <td>14,000</td>
+            </tr>
+            <tr>
+               <th>2</th>
+               <td>1958</td>
+               <td>Chevrolet</td>
+               <td>Impala</td>
+               <td>3,000</td>
+            </tr>
+         </tbody>
+         <tbody
+            id="nonAntiqueCars">
+            <tr>
+               <th>3</th>
+               <td
+                  rowspan="2">Non-Antique</td>
+               240 CHAPTER 5 More HTML5
+               <td>2012</td>
+               <td>BMW</td>
+               <td>Z4</td>
+               <td>40,000</td>
+            </tr>
+            <tr>
+               <th>4</th>
+               <td>2003</td>
+               <td>Mazda</td>
+               <td>Miata</td>
+               <td>5,000</td>
+            </tr>
+         </tbody>
+         <tfoot>
+            <tr>
+               <th colspan="5">Total:</th>
+               <th>62,000</th>
+            </tr>
+         </tfoot>
+         <caption> Wheels of chariot</caption>
+      </table>
+   </body>
+   <script type="text/javascript">
+      $(document).ready(function(){
+        $("tbody#nonAntiqueCars>tr").css("color","blue");
+   });
+   </script>
+</html>

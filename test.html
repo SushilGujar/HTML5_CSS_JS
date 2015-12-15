@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.0.0-alpha1.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+  <script>
+    onerror = unhandled;
+    function unhandled(msg, url, line)
+    {
+      alert("undefined");
+    }
+
+    function adition()
+    {
+      alert($("#int1").val() + $("#int2").val());
+    }
+    function divide()
+    {
+      if(isNaN($("#int1").val()) || isNaN($("#int2").val()))
+      {
+        throw("some error occurred");
+      }
+
+      alert($("#int1").val() / $("#int2").val());
+    }
+  </script>
+</head>
+<body>
+int 1: <input type=text id="int1"/>
+  int 2: <input type=text id="int2"/>
+  <button id="add" name="add" value="add" onclick="adition();">Add</button>
+  <button id="divide" name="divide" value="divide" onclick="divide();">Divide</button>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript">
+      function someEvent(el, event) {
+        // var target = event.srcElement || event.target;
+        // if(el === target)
+        alert("Some Event occurred");
+      }
+
+      function stopPropagation(e)
+      {
+        e = e || window.event;
+        if(e.stopPropagation)
+        {
+          e.stopPropagation();
+        }
+        else {
+          e.cancelBubble = true;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div onclick="someEvent(this, event);">
+      <span>
+      <label for="sizeRadiosml" onclick="stopPropagation(event);">Small</label>
+      <input type="radio" name="size" id="sizeRadioSml" value="1" onclick="stopPropagation(event);"></input>
+      <label for="sizeRadioMid">Medium</label>
+      <input type="radio" name="size" id="sizeRadioMid" value="1"></input>
+      <label for="sizeRadioLrg">Large</label>
+      <input type="radio" name="size" id="sizeRadioLrg" value="1"></input>
+      </span>
+    </div>
+  </body>
+</html>

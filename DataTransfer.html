@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Drag n Drop</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.3.js">
+    </script>
+  </head>
+  <body>
+    <label for="cars" class="label">Cars</label>
+    <div id="cars" class="container" width="800px" height="300px">
+      <ul id="supercars">
+        <li draggable="true" value="Veyron" data-value="car,Veyron">Buggatti - Veyron</li>
+        <li draggable="true" value="918" data-value="car,918">Porche - 918</li>
+        <li draggable="true" value="La'Ferrari" data-value="car,La'Ferrari">Ferrari - La'Ferrari</li>
+        <li draggable="true" value="DB9" data-value="car,Aston Martin">Aston Martin - DB9</li>
+      </ul>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <label for="chosen" class="label">The Ultimate</label>
+    <div id="chosen">
+      <ul id="ultimate" style="min-height:100px;background-color:yellow;">
+      </ul>
+    </div>
+  </body>
+  <script type="text/javascript">
+    jQuery.event.props.push('dataTransfer');
+    $(document).ready(function(){
+      $('#supercars').on('dragstart', pick );
+      $('#ultimate').on('dragenter', preventDefault );
+      $('#ultimate').on('dragover', preventDefault);
+      $('#ultimate').on('drop', show);
+    });
+
+    function pick(e)
+    {
+      var val = e.target.getAttribute('data-value');
+      e.dataTransfer.setData('text',val);
+      e.dataTransfer.effectAllowed = 'copy';
+    }
+
+    function show(event)
+    {
+      var ultimateCar = event.dataTransfer.getData('text').split(',');
+      if(ultimateCar[0] == 'car')
+      {
+        var li = document.createElement('li');
+        li.textContent = ultimateCar[1];
+        event.target.appendChild(li);
+        $('<li>' + ultimateCar[1] + '</li>').appendTo(event.target);
+      }
+      preventDefault(e);
+    }
+
+    function preventDefault(e){
+      e.preventDefault();
+    }
+  </script>
+
+</html>

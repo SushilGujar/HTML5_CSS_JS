@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Image and Map</title>
+    <link href="./css/main.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <div id="main" class="geeta">
+      <object data="Bhagwad-Geeta.pdf" type="application/pdf" ><a href="https://get.adobe.com/reader/" >
+        <img src="https://wwwimages2.adobe.com/downloadcenter/singlepage/live/images/reader_windows.gif">
+      </img>Get Adobe Reader for god's sake.</a></object>
+
+      <div class="gallery">
+      <object id="onlineMedia"  data="videos/job.mp4" type="video/mp4">
+        <param name="autoplay" value="false" />
+      </object>
+    </div>
+    </div>
+
+
+  </body>
+  <script lang="javascript">
+    var m = document.getElementById("onlineMedia");
+    m.addEventListener("ended", Run, false);
+    function Run()
+    {
+      alert("Bye");
+
+    }
+  </script>
+  </html>
