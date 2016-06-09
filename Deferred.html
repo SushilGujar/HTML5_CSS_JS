@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Deferred Demo</title>
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      function returnMoney()
+      {
+        var deferred = $.Deferred();
+          alert("i will pay your money!");
+          deferred.resolve();
+          return deferred.promise();
+      }
+
+      $(document).ready(function(){
+      $('#go').on('click', function clearPmt()
+      {
+        var promise = returnMoney();
+        promise.done(function function_name(argument) {
+              $("#result").append("<br />Payment is done!");
+        });
+        promise.fail(function function_name(argument) {
+              $("#result").append("<br />Payment is failed.");
+        });
+        promise.always(function function_name(argument) {
+              $("#result").append("<br />Thank You for paying on time always.");
+        });
+        promise.progress(function function_name(argument) {
+              $("#result").append("<br />Payment is in progress.");
+        });
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <label for="">Enter a number</label>
+    <input type="text" name="num" value="100" />
+    <button id="go" type="button" value="Go">Go!</button>
+    <br />
+    <div class="" id="result">
+
+    </div>
+  </body>
+</html>

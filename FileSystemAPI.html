@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>File System API Demo</title>
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+    <link href="./css/main.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <header>
+      <hgroup>
+          <h1>File System API</h1><br/>
+          <h3>Load your gun...</h3>
+      </hgroup
+    </header>
+    <div id="msgBox" class="goldenbox"><p id="msg" contenteditable="true">put message here</p></div>
+    <button type="button" autofocus="true" name="Load" id="Load">Load</button>
+    <button type="button" name="Update" id="Update">Update</button>
+    <button type="button" name="Delete" id="Delete">Delete</button>
+  </body>
+  <script type="text/javascript">
+    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+    $(document).ready(function(){
+      $("#Update").on("click", updateFile);
+      $("#Delete").on("click", deleteFile);
+      $("#Load").on("click", readFile);
+      $("#Write").on("click", writeFile);
+
+      if(window.requestFileSystem)
+      {
+        window.requestFileSystem('TEMPORARY', 5 * 1024 * 1024, loadFile, onError);
+      }
+    });
+
+    function onError(error) {
+      alert(error.message);
+    }
+
+    function readFile()
+    {
+      window.requestFileSystem('TEMPORARY', 5 * 1024 * 1024, readFSEntry, onError);
+    }
+
+    function readFSEntry(fs) {
+      fs.root.getFile("msg.txt", {create: true}, fileEntry, onError);
+    }
+
+    function fileEntry(fileEntry)
+    {
+      fileEntry.file(onRead, onError);
+    }
+
+    function onRead(file) {
+      var fileReader = new FileReader();
+      fileReader.onloadend = function (){$("#msg").html(this.result);};
+      fileReader.onerror = onError;
+
+      fileReader.readAsText(file);
+    }
+
+    function writeFile()
+    {
+      window.requestFileSystem('TEMPORARY', 5 * 1024 * 1024, loadFile, onError);
+    }
+
+    function loadFile(fs)
+    {
+        fs.root.getFile("msg.txt", {create: true}, onLoaded, onError);
+    }
+
+    function onLoaded(fileEntry)
+    {
+      fileEntry.createWriter(writeToFile, onError);
+    }
+
+    function writeToFile(file) {
+      file.onerror = onError;
+      file.onwriteend = written;
+      file.seek(file.length);
+      var msg = $("#msg").html();
+      file.write(new Blob([msg], {type: 'text/plain'}));
+    }
+
+    function written(arg)
+    {
+      alert("Message is written in TEMPORARY filesystem");
+    }
+
+    function updateFile()
+    {
+      writeFile();
+    }
+
+    function deleteFile() {
+      requestFileSystem("TEMPORARY", 5 * 1024 * 1024, rootEntry, onError);
+    }
+
+    function rootEntry(fs) {
+      fs.root.getFile("msg.txt", {create: true}, deleteFileEntry, onError);
+    }
+
+    function deleteFileEntry(file) {
+      file.remove(fileRemoved, onError);
+    }
+
+    function fileRemoved(arg) {
+      alert('file removed.');
+    }
+  </script>
+</html>

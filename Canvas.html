@@ -20,7 +20,9 @@
     ctx.strokeStyle = gradient;
     ctx.fillStyle = gradient;
     var x1 = 25, y1 = 50, width = 250, height=200;
-    ctx.fillRect(x1, y1, width, height);
+    //ctx.fillRect(x1, y1, width, height);
+    ctx.lineWidth = 6;
+    ctx.strokeRect(x1, y1, width, height);
 
     // save
     ctx.save();

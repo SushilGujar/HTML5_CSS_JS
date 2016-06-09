@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Number Scramble</title>
+    <link rel="stylesheet" href="css/scramble.css" media="screen" title="no title" charset="utf-8" />
+    <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+    <script src="js/scramble.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <header>
+      <hgroup>
+        <h1>Number Scramble</h1>
+        <h3>Goal Drag the numbers in sequence in shortest possible moves</h3>
+      </hgroup>
+    </header>
+    <br/>
+    <label for="level">Select your level: &nbsp;</label>
+    <input type="range" id="level" pattern="^\d$" min="2" Max="10" value="4" alt="true" ></input>
+    <br/>
+    <div id="gameboard">
+    </div>
+  </body>
+</html>

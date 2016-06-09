@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cookie Demo</title>
+  </head>
+  <body>
+    <div id="welcomeBack">
+    <label for="lastVisitedDate">Welcome back <em id="custNameFromStore"></em>! You have last visited on: </label>
+      <span id="lastVisitedDate"></span>
+    </div>
+    <div id="welcome">
+    <label for="">Welcome! Enjoy your first visit to my store...</label><br/>
+    <label for="custName">Before you begin, we would like to know how would you like us to call you?</label><br/>
+    <input type="text" id="custName" placeholder="<Harry Potter>" pattern="^\w*$" maxlength="50"/>
+      <button id="go" value="go">Go!</button>
+    </div>
+  </body>
+  <script src="js/jquery-1.11.3.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+      var expiration = new Date();
+      var today = new Date();
+      expiration.setDate(expiration.getDate() + 30);
+      var datecookie = "lastVisit=" + today + ";expires=" + expiration.toUTCString() + ";";
+      document.cookie = datecookie;
+
+      $("#go").click(function(){
+        cookie = "custName=" + $("#custName").val() + ";";
+        var datecookie = "lastVisit=" + today + ";expires=" + expiration.toUTCString() + ";";
+        document.cookie = cookie + datecookie;
+      });
+
+      var cookies = document.cookie.split(";");
+      if(cookies && cookies.length > 0)
+      {
+        cookies.forEach(function(cookie) {
+          var key = cookie.substr(0, cookie.indexOf("="));
+          var val = cookie.substr(cookie.indexOf("=") + 1);
+
+          switch (key.trim()) {
+            case "custName":
+                $("#welcomeBack").css("display", "block");
+                $("#welcome").css("display", "none");
+                $("#custNameFromStore").html(val || "Valued Customer");
+              break;
+            case "lastVisit":
+                $("#lastVisitedDate").html(val || new Date());
+              break;
+            default:
+              $("#welcomeBack").css("display", "none");
+              $("#welcome").css("display", "block");
+          }
+
+        })
+      }
+    });
+  </script>
+</html>

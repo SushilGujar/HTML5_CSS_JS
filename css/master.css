@@ -7,7 +7,7 @@
 {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-direction: row-reverse;
 
     margin: 10px;
@@ -20,17 +20,17 @@
   min-height: 80px;
   border: 1px solid blue;
   margin: 2px;
-  flex: auto;
 }
 
 #flexbox1 > div:first-child{
   background-color: orange;
+  flex: 1;
 }
 #flexbox1 > div:nth-child(2){
   background-color: crimson;
-  flex: 0.67;
+  flex: 1.5;
 }
 #flexbox1 > div:nth-child(3){
   background-color: green;
-  flex: 0.33;
+  flex: auto;
 }

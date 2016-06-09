@@ -13,7 +13,7 @@
     arr = [ 'a', 'b', 'c', 'd', 'e' ];
     rra = ['z', 'y', 'x'];
 
-    $("#para").html('join:          ' + arr.join());
+    $("#para").html('join:          ' + arr.join('#'));
     $('#para').append('<br/>');
     $("#para").append('toString:    ' + arr.toString());
     $('#para').append('<br/>');
@@ -27,9 +27,9 @@
     $('#para').append('<br/>');
     arr = [ 'a', 'b', 'c', 'd', 'e' ];
     //arr =  arr.splice(2, 3, 'spice');
-    $("#para").append('splice:     ' + arr.splice(2, 2, ['spice','dog']));
+    $("#para").append('splice - return:     ' + arr.splice(2, 3, ['spice','dog']));
     $('#para').append('<br/>');
-    $("#para").append('splice:     ' + arr);
+    $("#para").append('splice - original:     ' + arr);
     $('#para').append('<br/>');
     $("#para").append('sort:     ' + rra.sort().toString());
   </script>

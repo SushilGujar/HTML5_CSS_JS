@@ -39,7 +39,8 @@
     {
       var val = e.target.getAttribute('data-value');
       e.dataTransfer.setData('text',val);
-      e.dataTransfer.effectAllowed = 'copy';
+      e.dataTransfer.effectAllowed = 'move';
+      e.target.removeClass();
     }
 
     function show(event)
@@ -50,7 +51,7 @@
         var li = document.createElement('li');
         li.textContent = ultimateCar[1];
         event.target.appendChild(li);
-        $('<li>' + ultimateCar[1] + '</li>').appendTo(event.target);
+        //$('<li>' + ultimateCar[1] + '</li>').appendTo(event.target);
       }
       preventDefault(e);
     }

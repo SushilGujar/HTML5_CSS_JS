@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flexbox</title>
+    <style media="screen">
+    p span
+    {
+      font-size: 24px;
+      font-family: cursive;
+    }
+      #span1
+      {
+        position: relative;
+        color:red;
+        width: 500px;
+        height: 200px;
+        z-index: -1;
+      }
+      #span2
+      {
+        position: absolute;
+        color:green;
+        z-index: -4;
+        top: 0px;
+        left: -100px;
+        height: 150px;
+        width: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Start of main content.
+      <span id="span1">Start of span1 content.
+      <span id="span2">Start of span2 content.</span>
+      End of span1 content.
+      </span>
+      End of main content.
+    </p>
+
+  </body>
+</html>
